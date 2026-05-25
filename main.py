@@ -12,7 +12,7 @@ from admin    import admin_confirm_payment, rate_platform, view_trust_score
 
 def farmer_menu(farmer_id):
     while True:
-        print("\n===== FARMER MENU =====")
+        print("\n^^^^ FARMER MENU ^^^^")
         print("1. List a new harvest")
         print("2. Go back to main menu")
         choice = input("Choose (1-2): ")
@@ -22,7 +22,7 @@ def farmer_menu(farmer_id):
         elif choice == "2":
             break
         else:
-            print("❌ Invalid option.\n")
+            print(" Invalid option.\n")
 
 
 # the codes are for the Vendor Menu.
@@ -30,7 +30,7 @@ def farmer_menu(farmer_id):
 
 def vendor_menu(vendor_id):
     while True:
-        print("\n===== VENDOR MENU =====")
+        print("\n^^^^ VENDOR MENU ^^^^")
         print("1. Browse all harvests")
         print("2. Search for a specific crop")
         print("3. Place an order")
@@ -58,13 +58,13 @@ def vendor_menu(vendor_id):
         elif choice == "8":
             break
         else:
-            print("❌ Invalid option.\n")
+            print(" Invalid option.\n")
 
 # the codes are for the Admin Menu.
 
 def admin_menu():
     while True:
-        print("\n===== ADMIN MENU =====")
+        print("\n^^^^ ADMIN MENU ^^^^")
         print("1. Confirm a payment")
         print("2. View trust score")
         print("3. Go back to main menu")
@@ -77,7 +77,7 @@ def admin_menu():
         elif choice == "3":
             break
         else:
-            print("❌ Invalid option.\n")
+            print(" Invalid option.\n")
 
 
 
@@ -88,14 +88,13 @@ def main():
     create_tables()
 
     # Welcome message
-    print("=" * 50)
-    print("   Welcome to AGRI-BRIDGE 🌾")
-    print("   Connecting Farmers to Buyers in Nigeria")
-    print("   Reducing Post-Harvest Waste, One Order at a Time")
-    print("=" * 50)
+    print("Welcome to AGRI-BRIDGE ")
+    print("Connecting Farmers to Buyers in Nigeria")
+    print("Reducing Post-Harvest Waste, One Order at a Time")
+    
 
     while True:
-        print("\n===== WHO ARE YOU? =====")
+        print("\n^^^^ WHO ARE YOU? ^^^^")
         print("1. I am a Farmer")
         print("2. I am a Vendor (Buyer)")
         print("3. Admin")
@@ -115,7 +114,7 @@ def main():
                 if farmer_id:   # Only go to menu if login was successful
                     farmer_menu(farmer_id)
             else:
-                print("❌ Invalid option.\n")
+                print(" Invalid option.\n")
 
         # Vendor flow
         elif user_type == "2":
@@ -130,7 +129,7 @@ def main():
                 if vendor_id:   # Only go to menu if login was successful
                     vendor_menu(vendor_id)
             else:
-                print("❌ Invalid option.\n")
+                print(" Invalid option.\n")
 
         # Admin flow
         elif user_type == "3":
@@ -138,11 +137,11 @@ def main():
 
         # Exit option
         elif user_type == "4":
-            print("\n👋 Thank you for using AgriBridge. Goodbye!")
+            print("\n Thank you for using AgriBridge. Goodbye!")
             break
 
         else:
-            print("❌ Invalid option. Please choose 1, 2, 3, or 4.\n")
+            print(" Invalid option. Please choose 1, 2, 3, or 4.\n")
 
 
 # Only run main() if this file is run directly

@@ -2,11 +2,11 @@
 # views their orders, cancels an order, or updates a payment reference.
 
 from datetime import datetime
-from database import connect_db, get_input, get_positive_number, divider
+from database import connect_db, get_input, get_positive_number
 from vendors  import browse_harvests   # We will need to reuse browse_harvests to show listings
 
 def place_order(vendor_id):
-    print("\n--- Place an Order ---")
+    print("\n___ Place an Order ___")
 
     # Show all available listings first so the vendor can see what to pick
 
@@ -21,7 +21,7 @@ def place_order(vendor_id):
             listing_id = int(get_input("the Listing ID you want to order"))
             break
         except ValueError:
-            print("❌ Listing ID must be a number. Please try again.")
+            print(" Listing ID must be a number. Please try again.")
 
     # the helper function get_positive_number will ensure the quantity is a positive number and not empty.
 
@@ -38,7 +38,7 @@ def place_order(vendor_id):
     result = cursor.fetchone()
 
     if not result:
-        print("❌ That listing ID does not exist. Please check and try again.\n")
+        print(" That listing ID does not exist. Please check and try again.\n")
         conn.close()
         return
 
@@ -46,14 +46,14 @@ def place_order(vendor_id):
     available_quantity = result[1]
 
     if quantity_ordered > available_quantity:
-        print(f"❌ Not enough stock. Only {available_quantity} KG available for {crop_name}.\n")
+        print(f" Not enough stock. Only {available_quantity} KG available for {crop_name}.\n")
         conn.close()
         return
     
     # The vendor pays via bank transfer outside the app,
     # then enters their reference number here as proof
 
-    print("\n--- Payment Instructions ---")
+    print("\n___ Payment Instructions ___")
     print("Please make a bank transfer to:")
     print("  Bank Name   : AgriBridge Bank")
     print("  Account No  : 0123456789")
@@ -92,7 +92,7 @@ def place_order(vendor_id):
     conn.commit()
     conn.close()
 
-    print(f"\n✅ Order placed for {quantity_ordered} KG of {crop_name}!")
+    print(f"\n Order placed for {quantity_ordered} KG of {crop_name}!")
     print(f"   Order Status: {status}")
     print("   AgriBridge will contact you once the admin confirms your payment.\n")
     
@@ -100,7 +100,7 @@ def place_order(vendor_id):
 #  and harvest_listings tables using a JOIN, and displays them in a readable format.
 
 def view_my_orders(vendor_id):
-    print("\n--- My Orders ---")
+    print("\n___ My Orders ___")
 
     conn   = connect_db()
     cursor = conn.cursor()
@@ -131,14 +131,14 @@ def view_my_orders(vendor_id):
         print(f"  Date        : {order[3]}")
         print(f"  Status      : {order[4]}")
         print(f"  Payment Ref : {order[5] if order[5] else 'Not provided yet'}")
-        divider()
+        
 
 # the codes below allow the vendor to cancel an order that is still pending payment or awaiting admin confirmation.
 # Only orders that are "Pending Payment" or "Awaiting Admin Confirmation" can be cancelled.
 # Once an admin confirms, it is too late to cancel.
 
 def cancel_order(vendor_id):
-    print("\n--- Cancel an Order ---")
+    print("\n___ Cancel an Order ___")
 
     conn   = connect_db()
     cursor = conn.cursor()
@@ -158,26 +158,26 @@ def cancel_order(vendor_id):
     cancellable = cursor.fetchall()
 
     if not cancellable:
-        print("❌ You have no orders that can be cancelled.")
+        print(" You have no orders that can be cancelled.")
         print("   Orders that are already confirmed cannot be cancelled.\n")
         conn.close()
         return
 
     print("\nOrders you can cancel:")
-    divider()
+    
     for order in cancellable:
         print(f"  Order ID : {order[0]}")
         print(f"  Crop     : {order[1]}")
         print(f"  Quantity : {order[2]} KG")
         print(f"  Status   : {order[3]}")
-        divider()
+        
 
     while True:
         try:
             transaction_id = int(get_input("the Order ID you want to cancel"))
             break
         except ValueError:
-            print("❌ Order ID must be a number. Please try again.")
+            print(" Order ID must be a number. Please try again.")
 
     # Verify the order belongs to this vendor and is still cancellable
 
@@ -192,7 +192,7 @@ def cancel_order(vendor_id):
     order = cursor.fetchone()
 
     if not order:
-        print("❌ That Order ID was not found or cannot be cancelled.\n")
+        print(" That Order ID was not found or cannot be cancelled.\n")
         conn.close()
         return
 
@@ -224,14 +224,14 @@ def cancel_order(vendor_id):
     conn.commit()
     conn.close()
 
-    print("✅ Your order has been cancelled.")
+    print(" Your order has been cancelled.")
     print("   The stock has been returned to the listing.\n")
 
     # the code below allows the vendor to update their payment reference number 
     # for orders that are still pending payment or awaiting admin confirmation.
 
 def fix_payment_reference(vendor_id):
-    print("\n--- Update Payment Reference ---")
+    print("\n___ Update Payment Reference ___")
 
     conn   = connect_db()
     cursor = conn.cursor()
@@ -251,12 +251,12 @@ def fix_payment_reference(vendor_id):
     orders = cursor.fetchall()
 
     if not orders:
-        print("❌ You have no orders where the payment reference can be updated.\n")
+        print(" You have no orders where the payment reference can be updated.\n")
         conn.close()
         return
 
     print("\nOrders you can update:")
-    divider()
+   
     for order in orders:
         current_ref = order[3] if order[3] else "Not provided yet"
         print(f"  Order ID       : {order[0]}")
@@ -264,14 +264,14 @@ def fix_payment_reference(vendor_id):
         print(f"  Quantity       : {order[2]} KG")
         print(f"  Current Ref No : {current_ref}")
         print(f"  Status         : {order[4]}")
-        divider()
+        
 
     while True:
         try:
             transaction_id = int(get_input("the Order ID you want to update"))
             break
         except ValueError:
-            print("❌ Order ID must be a number. Please try again.")
+            print(" Order ID must be a number. Please try again.")
 
     # Confirm it belongs to this vendor and is still editable(can be chnaged).
 
@@ -285,7 +285,7 @@ def fix_payment_reference(vendor_id):
     found = cursor.fetchone()
 
     if not found:
-        print("❌ That Order ID was not found or can no longer be updated.\n")
+        print(" That Order ID was not found or can no longer be updated.\n")
         conn.close()
         return
 
@@ -302,5 +302,5 @@ def fix_payment_reference(vendor_id):
     conn.commit()
     conn.close()
 
-    print("✅ Payment reference updated successfully!")
+    print(" Payment reference updated successfully!")
     print("   Status set to: Awaiting Admin Confirmation\n")
