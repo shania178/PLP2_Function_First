@@ -86,7 +86,7 @@ def get_input(label):
         else:
             return value
 #2nd function, will validate the contact number to ensure it is in the correct format (e.g., 10 digits).
-def get_positive_integer(label, whole_number=False):
+def get_positive_number(label, whole_number=False):
     while True:
         try:
             if whole_number:
@@ -109,5 +109,5 @@ def get_letters_only(label):
             return value
         else:
             print(f"{label} must contain only letters. No numbers or symbols allowed. Please try again.")
-                        
+
         
