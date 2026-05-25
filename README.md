@@ -52,7 +52,7 @@ The system uses SQLite for data storage and follows a modular programming struct
 
 * Python 3
 * SQLite3
-* VS Code / Any Python IDE
+* VS Code 
 * Git & GitHub
 
 ---
@@ -140,46 +140,3 @@ When the program starts, the SQLite database and required tables will automatica
 
 ---
 
-## Input Validation
-
-The system includes validation checks such as:
-
-* Preventing empty inputs
-* Allowing only positive numbers for quantities
-* Restricting names and crop types to letters only
-* Preventing invalid order quantities
-* Ensuring only editable orders can be updated or cancelled
-
----
-
-## Future Improvements
-
-Possible future upgrades include:
-
-* Password hashing for better security
-* GUI or web-based interface
-* Real-time notifications
-* Farmer/vendor messaging system
-* Online payment gateway integration
-* Data analytics dashboard
-* Delivery tracking system
-
----
-
-## Known Issues
-
-* SQLite is suitable for small-scale use only
-* Passwords are currently stored as plain text
-* Pricing system is not yet automated
-
----
-
-## License
-
-This project is for educational purposes.
-
----
-
-## Authors
-
-Developed by the AgriBridge Project Team.
