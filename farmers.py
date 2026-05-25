@@ -42,15 +42,15 @@ def register_farmer():
     
     # Login a farmer
     
-    def login_farmer():
-        print("\n Farmer Login")
+def login_farmer():
+    print("\n Farmer Login")
         
-        while True:
-            try:
-                farmer_id = int(get_input("Enter your Farmer ID"))
-                break
-            except ValueError:
-                print("Farmer ID must be a number, please try again.")
+    while True:
+        try:
+            farmer_id = int(get_input("Enter your Farmer ID"))
+            break
+        except ValueError:
+            print("Farmer ID must be a number, please try again.")
                 
     password = get_input("Enter your password")
     
@@ -73,19 +73,19 @@ def register_farmer():
     
     # List a crop
     
-    def list_harvest(farmer_id):
-        print("\n List Your Crop")
+def list_harvest(farmer_id):
+    print("\n List Your Crop")
         
-        crop_type = get_letters_only("Enter crop type (e.g. tomatoes, onions)")
-        quantity = get_positive_number("Enter quantity available in KG")
-        harvest_date = get_input("Enter harvest date (YYYY-MM-DD)")
-        days_to_spoilage = get_positive_number("estimated days before it spoils", whole_number=True)
-        urgent = 1 if days_to_spoilage <= 5 else 0
+    crop_type = get_letters_only("Enter crop type (e.g. tomatoes, onions)")
+    quantity = get_positive_number("Enter quantity available in KG")
+    harvest_date = get_input("Enter harvest date (YYYY-MM-DD)")
+    days_to_spoilage = get_positive_number("estimated days before it spoils", whole_number=True)
+    urgent = 1 if days_to_spoilage <= 5 else 0
         
-        conn = connect_db()
-        cursor = conn.cursor()
+    conn = connect_db()
+    cursor = conn.cursor()
         
-        cursor.execute("""
+    cursor.execute("""
         INSERT INTO harvest_listings
             (farmer_id, crop_type, quantity, harvest_date, days_to_spoilage, urgent)
         VALUES (?, ?, ?, ?, ?, ?)
