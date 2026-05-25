@@ -5,8 +5,7 @@
 #   - browse_harvests()  (shows all available listings)
 #   - search_harvests()  (search listings by crop type)
 
-from database import connect_db, get_input, get_letters_only, divider
-
+from database import connect_db, get_input, get_letters_only
 
 # VENDOR: Register a new vendor
 
@@ -24,7 +23,7 @@ def register_vendor():
     cursor.execute(
         "INSERT INTO vendors (name, business_name, location, password) VALUES (?, ?, ?, ?)",
         (name, business_name, location, password)
-    )
+    )   
 
     conn.commit()
 
@@ -35,9 +34,7 @@ def register_vendor():
 
     print("Vendor registered successfully!")
     print()
-    print("=" * 40)
     print(f"Your Vendor ID is: {vendor_id}")
-    print("=" * 40)
     print("IMPORTANT: Please write this down!")
     print("You will need this ID every time you log in.")
     print("We cannot recover it for you if you forget.\n")
@@ -83,7 +80,7 @@ def browse_harvests():
     print("\nAVAILABLE HARVEST LISTINGS---")
 
     conn   = connect_db()
-    cursor = conn.cursor()
+    cursor  = conn.cursor()
 
     cursor.execute("""
         SELECT listing_id, crop_type, quantity, harvest_date, days_to_spoilage, urgent
@@ -101,7 +98,7 @@ def browse_harvests():
 
     print()
     print(f"{'ID':<5} {'Crop':<15} {'Qty (KG)':<10} {'Harvest Date':<15} {'Days Left':<10} {'Urgent?'}")
-    divider()
+    
 
     for row in listings:
         urgent_label = "YES" if row[5] == 1 else "NO"
@@ -140,7 +137,6 @@ def search_harvests():
 
     print(f"\nFound {len(results)} listing(s) for '{crop_search}':\n")
     print(f"{'ID':<5} {'Crop':<15} {'Qty (KG)':<10} {'Days Left':<10} {'Urgent?'}")
-    divider()
 
     for row in results:
         urgent_label = "YES" if row[5] == 1 else "NO"

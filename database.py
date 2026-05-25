@@ -59,7 +59,7 @@ def create_tables():
             status TEXT DEFAULT 'Pending payment',
             payment_reference TEXT NOT NULL,
             FOREIGN KEY (vendor_id) REFERENCES vendors(vendor_id)
-            FOREIGN KEY (listing_id) REFERENCES harvest_listings(listing_id),
+            FOREIGN KEY (listing_id) REFERENCES harvest_listings(listing_id)
         )
     """)
     #Creating the "FEEDBACK" table. It will store the feedback provided by the vendors (buyers).
@@ -70,7 +70,7 @@ def create_tables():
             rating INTEGER NOT NULL CHECK (rating >= 1 AND rating <= 5),
             comment TEXT,
             feedback_date TEXT NOT NULL,
-            FOREIGN KEY (vendor_id) REFERENCES vendors(vendor_id),
+            FOREIGN KEY (vendor_id) REFERENCES vendors(vendor_id)
         )
     """)
     conn.commit()
