@@ -2,7 +2,7 @@
 # views their orders, cancels an order, or updates a payment reference.
 
 from datetime import datetime
-from database import connect_db, get_input, get_positive_number, divider
+from database import connect_db, get_input, get_positive_number
 from vendors  import browse_harvests   # We will need to reuse browse_harvests to show listings
 
 def place_order(vendor_id):
@@ -42,7 +42,7 @@ def place_order(vendor_id):
         conn.close()
         return
 
-    crop_name = result[0]
+    crop_name          = result[0]
     available_quantity = result[1]
 
     if quantity_ordered > available_quantity:
@@ -120,18 +120,18 @@ def view_my_orders(vendor_id):
     conn.close()
 
     if not orders:
-        print("You have not placed any orders yet.\n")
+        print("❌ You have not placed any orders yet.\n")
         return
 
     print()
     for order in orders:
-        print(f"  Order ID  : {order[0]}")
-        print(f"  Crop : {order[1]}")
-        print(f"  Quantity : {order[2]} KG")
-        print(f"  Date : {order[3]}")
-        print(f"  Status : {order[4]}")
+        print(f"  Order ID    : {order[0]}")
+        print(f"  Crop        : {order[1]}")
+        print(f"  Quantity    : {order[2]} KG")
+        print(f"  Date        : {order[3]}")
+        print(f"  Status      : {order[4]}")
         print(f"  Payment Ref : {order[5] if order[5] else 'Not provided yet'}")
-        divider()
+        
 
 # the codes below allow the vendor to cancel an order that is still pending payment or awaiting admin confirmation.
 # Only orders that are "Pending Payment" or "Awaiting Admin Confirmation" can be cancelled.
@@ -140,7 +140,7 @@ def view_my_orders(vendor_id):
 def cancel_order(vendor_id):
     print("\n___ Cancel an Order ___")
 
-    conn = connect_db()
+    conn   = connect_db()
     cursor = conn.cursor()
 
     # Only fetch orders that are still cancellable (waiting Admin approval / pending payment)
@@ -164,13 +164,13 @@ def cancel_order(vendor_id):
         return
 
     print("\nOrders you can cancel:")
-    divider()
+    
     for order in cancellable:
         print(f"  Order ID : {order[0]}")
         print(f"  Crop     : {order[1]}")
         print(f"  Quantity : {order[2]} KG")
         print(f"  Status   : {order[3]}")
-        divider()
+        
 
     while True:
         try:
@@ -192,7 +192,7 @@ def cancel_order(vendor_id):
     order = cursor.fetchone()
 
     if not order:
-        print("That Order ID was not found or cannot be cancelled.\n")
+        print(" That Order ID was not found or cannot be cancelled.\n")
         conn.close()
         return
 
@@ -233,7 +233,7 @@ def cancel_order(vendor_id):
 def fix_payment_reference(vendor_id):
     print("\n___ Update Payment Reference ___")
 
-    conn = connect_db()
+    conn   = connect_db()
     cursor = conn.cursor()
 
     # Only show orders where the reference can still be changed
@@ -256,7 +256,7 @@ def fix_payment_reference(vendor_id):
         return
 
     print("\nOrders you can update:")
-    divider()
+   
     for order in orders:
         current_ref = order[3] if order[3] else "Not provided yet"
         print(f"  Order ID       : {order[0]}")
@@ -264,7 +264,7 @@ def fix_payment_reference(vendor_id):
         print(f"  Quantity       : {order[2]} KG")
         print(f"  Current Ref No : {current_ref}")
         print(f"  Status         : {order[4]}")
-        divider()
+        
 
     while True:
         try:
@@ -303,4 +303,4 @@ def fix_payment_reference(vendor_id):
     conn.close()
 
     print(" Payment reference updated successfully!")
-    print(" Status set to: Awaiting Admin Confirmation\n")
+    print("   Status set to: Awaiting Admin Confirmation\n")
