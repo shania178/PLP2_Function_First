@@ -42,7 +42,7 @@ def place_order(vendor_id):
         conn.close()
         return
 
-    crop_name          = result[0]
+    crop_name = result[0]
     available_quantity = result[1]
 
     if quantity_ordered > available_quantity:
@@ -120,16 +120,16 @@ def view_my_orders(vendor_id):
     conn.close()
 
     if not orders:
-        print("❌ You have not placed any orders yet.\n")
+        print("You have not placed any orders yet.\n")
         return
 
     print()
     for order in orders:
-        print(f"  Order ID    : {order[0]}")
-        print(f"  Crop        : {order[1]}")
-        print(f"  Quantity    : {order[2]} KG")
-        print(f"  Date        : {order[3]}")
-        print(f"  Status      : {order[4]}")
+        print(f"  Order ID  : {order[0]}")
+        print(f"  Crop : {order[1]}")
+        print(f"  Quantity : {order[2]} KG")
+        print(f"  Date : {order[3]}")
+        print(f"  Status : {order[4]}")
         print(f"  Payment Ref : {order[5] if order[5] else 'Not provided yet'}")
         divider()
 
@@ -140,7 +140,7 @@ def view_my_orders(vendor_id):
 def cancel_order(vendor_id):
     print("\n___ Cancel an Order ___")
 
-    conn   = connect_db()
+    conn = connect_db()
     cursor = conn.cursor()
 
     # Only fetch orders that are still cancellable (waiting Admin approval / pending payment)
@@ -192,7 +192,7 @@ def cancel_order(vendor_id):
     order = cursor.fetchone()
 
     if not order:
-        print("❌ That Order ID was not found or cannot be cancelled.\n")
+        print("That Order ID was not found or cannot be cancelled.\n")
         conn.close()
         return
 
@@ -233,7 +233,7 @@ def cancel_order(vendor_id):
 def fix_payment_reference(vendor_id):
     print("\n___ Update Payment Reference ___")
 
-    conn   = connect_db()
+    conn = connect_db()
     cursor = conn.cursor()
 
     # Only show orders where the reference can still be changed
@@ -303,4 +303,4 @@ def fix_payment_reference(vendor_id):
     conn.close()
 
     print(" Payment reference updated successfully!")
-    print("   Status set to: Awaiting Admin Confirmation\n")
+    print(" Status set to: Awaiting Admin Confirmation\n")
