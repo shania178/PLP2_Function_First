@@ -88,9 +88,9 @@ def main():
     create_tables()
 
     # Welcome message
-    print("   Welcome to AGRI-BRIDGE ")
-    print("   Connecting Farmers to Buyers in Nigeria")
-    print("   Reducing Post-Harvest Waste, One Order at a Time")
+    print("Welcome to AGRI-BRIDGE ")
+    print("Connecting Farmers to Buyers in Nigeria")
+    print("Reducing Post-Harvest Waste, One Order at a Time")
     
 
     while True:
