@@ -88,11 +88,10 @@ def main():
     create_tables()
 
     # Welcome message
-    print("*" * 30)
     print("   Welcome to AGRI-BRIDGE ")
     print("   Connecting Farmers to Buyers in Nigeria")
     print("   Reducing Post-Harvest Waste, One Order at a Time")
-    print("*" * 30)
+    
 
     while True:
         print("\n^^^^ WHO ARE YOU? ^^^^")
