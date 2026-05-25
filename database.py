@@ -54,7 +54,7 @@ def create_tables():
             transaction_id INTEGER PRIMARY KEY AUTOINCREMENT,
             vendor_id INTEGER NOT NULL,       
             listing_id INTEGER NOT NULL,
-            quantity_orderedREAL NOT NULL,
+            quantity_ordered REAL NOT NULL,
             order_date TEXT NOT NULL,
             status TEXT DEFAULT 'Pending payment',
             payment_reference TEXT NOT NULL,
