@@ -4,7 +4,7 @@
 # login_farmer() where existing farmer logs in
 # list_farmer() where farmer posts a crop listing
 
-from database import connect_db, get_input, get_positive_number, get_letters_only
+from database import connect_db, get_contact_number, get_date, get_input, get_positive_number, get_letters_only
 
 # Register a new farmer
 
@@ -13,8 +13,8 @@ def register_farmer():
     
     name = get_letters_only(" your full name")
     location = get_input(" your location (state/city)")
-    contact = get_input(" your contact number")
-    password = get_input(" a password")
+    contact = get_contact_number(" your contact number. \nN.B. It should be a nigerian number without a country code included.:")
+    password = get_input(" a password (at least 8 characters long)")
     
     conn = connect_db()
     cursor = conn.cursor()
@@ -78,9 +78,9 @@ def list_harvest(farmer_id):
         
     crop_type = get_letters_only("Enter crop type (e.g. tomatoes, onions)")
     quantity = get_positive_number("Enter quantity available in KG")
-    harvest_date = get_input("Enter harvest date (YYYY-MM-DD)")
+    harvest_date = get_date("Enter harvest date (YYYY-MM-DD)")
     days_to_spoilage = get_positive_number("estimated days before it spoils", whole_number=True)
-    urgent = 1 if days_to_spoilage <= 5 else 0
+    urgent = 1 if days_to_spoilage <= 7 else 0
         
     conn = connect_db()
     cursor = conn.cursor()
@@ -95,7 +95,7 @@ def list_harvest(farmer_id):
     conn.close()
     
     if urgent:
-        print("Your listing has been marked as urgent because it spoils in 5 days or less.")
+        print("Your listing has been marked as urgent because it spoils in 7 days or less.")
         print("It will appear at the top of the listings so vendors see it first")
         print("Crop listed successfully!\n")
         

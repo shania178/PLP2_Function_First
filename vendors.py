@@ -5,7 +5,7 @@
 #   - browse_harvests()  (shows all available listings)
 #   - search_harvests()  (search listings by crop type)
 
-from database import connect_db, get_input, get_letters_only
+from database import connect_db, get_contact_number, get_input, get_letters_only
 
 # VENDOR: Register a new vendor
 
@@ -15,8 +15,8 @@ def register_vendor():
     name          = get_letters_only("your full name")
     business_name = get_input("your business/company name")
     location      = get_input("your location")
-    contact       = get_input("your contact number")
-    password      = get_input("a password")
+    contact       = get_contact_number("your contact number. \nN.B. It should be a nigerian number without a country code included.:")
+    password      = get_input("a password (at least 6 characters, with letters and numbers)")
 
     conn   = connect_db()
     cursor = conn.cursor()
