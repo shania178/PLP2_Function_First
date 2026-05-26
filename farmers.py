@@ -14,7 +14,16 @@ def register_farmer():
     name = get_letters_only(" your full name")
     location = get_input(" your location (state/city)")
     contact = get_input(" your contact number")
-    password = get_input(" a password")
+    
+    # Password Validation
+
+    while True:
+        password  = get_input("a password")
+
+        if len(password) >= 8:
+            break
+        else:
+            print("Password must be at least 8 characters.")
     
     conn = connect_db()
     cursor = conn.cursor()
