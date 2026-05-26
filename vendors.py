@@ -22,7 +22,7 @@ def register_vendor():
     cursor = conn.cursor()
 
     cursor.execute(
-        "INSERT INTO vendors (name, business_name, location,contact, password) VALUES (?, ?, ?, ?)",
+        "INSERT INTO vendors (name, business_name, location, contact, password) VALUES (?, ?, ?, ?)",
         (name, business_name, location, contact, password)
     )   
 
