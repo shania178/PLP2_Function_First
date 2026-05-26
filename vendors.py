@@ -15,6 +15,7 @@ def register_vendor():
     name          = get_letters_only("your full name")
     business_name = get_input("your business/company name")
     location      = get_input("your location")
+    contact       = get_input("your contact number")
     password      = get_input("a password")
 
     conn   = connect_db()
@@ -22,7 +23,7 @@ def register_vendor():
 
     cursor.execute(
         "INSERT INTO vendors (name, business_name, location, password) VALUES (?, ?, ?, ?)",
-        (name, business_name, location, password)
+        (name, business_name, location, contact, password)
     )   
 
     conn.commit()
