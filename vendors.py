@@ -12,10 +12,10 @@ from database import connect_db, get_input, get_letters_only
 def register_vendor():
     print("\nREGISTER AS A VENDOR")
 
-    name          = get_letters_only("Enter your full name: ")
-    business_name = get_input("Enter your business/company name: ")
-    location      = get_input("Enter your location: ")
-    password      = get_input("Enter a password: ")
+    name          = get_letters_only("your full name")
+    business_name = get_input("your business/company name")
+    location      = get_input("your location")
+    password      = get_input("a password")
 
     conn   = connect_db()
     cursor = conn.cursor()
@@ -47,12 +47,12 @@ def login_vendor():
 
     while True:
         try:
-            vendor_id = int(get_input("Enter your Vendor ID: "))
+            vendor_id = int(get_input("your Vendor ID"))
             break
         except ValueError:
             print("Vendor ID must be a number. Please try again.")
 
-    password = get_input("Enter your password: ")
+    password = get_input("your password")
 
     conn   = connect_db()
     cursor = conn.cursor()
@@ -112,7 +112,7 @@ def browse_harvests():
 
 def search_harvests():
     print("\nSEARCH HARVEST BY CROP TYPES")
-    crop_search = get_input("Enter the crop type you are looking for: ").lower()
+    crop_search = get_input("the crop type you are looking for: ").lower()
 
     conn   = connect_db()
     cursor = conn.cursor()
