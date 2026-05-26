@@ -1,6 +1,7 @@
 from datetime import datetime
 from database import connect_db, get_input, get_positive_number
 
+# ADMIN: Confirm a payment from a vendor
 def admin_confirm_payment():
     print("\n ADMIN: Confirm a Payment")
     print("(This section is for AgriBridge admin use only)")
