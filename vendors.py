@@ -16,7 +16,17 @@ def register_vendor():
     business_name = get_input("your business/company name")
     location      = get_input("your location")
     contact       = get_contact_number("your contact number. \nN.B. It should be a nigerian number without a country code included.:")
-    password      = get_input("a password (at least 6 characters, with letters and numbers)")
+
+    #Password Validation 
+
+    while True:
+        password  = get_input("a password")
+        
+        if len(password) >= 8:
+            break
+        else:
+            print("Password must be at least 8 characters.")
+
 
     conn   = connect_db()
     cursor = conn.cursor()
@@ -54,7 +64,7 @@ def login_vendor():
             print("Vendor ID must be a number. Please try again.")
 
     password = get_input("your password")
-
+    
     conn   = connect_db()
     cursor = conn.cursor()
 
