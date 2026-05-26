@@ -17,7 +17,7 @@ def admin_confirm_payment():
     FROM transactions t
     JOIN vendors v ON t.vendor_id = v.vendor_id
     JOIN harvest_listings h ON t.listing_id = h.listing_id
-    WHERE t.status = 'Awaiting admin confirmation'
+    WHERE t.status = 'Awaiting Admin Confirmation'
 """)
     pending = cursor.fetchall()
     if not pending:
@@ -42,15 +42,31 @@ def admin_confirm_payment():
             print(" Transaction ID must be a number. Please try again.")
  
     # Update the status to show the order is now confirmed and moving forward
+    #Check if the transaction ID actually exists in the pending list before trying to confirm it
+    cursor.execute("""
+        SELECT transaction_id FROM transactions
+        WHERE transaction_id = ?
+        AND status = 'Awaiting Admin Confirmation'
+    """, (transaction_id,))
+ 
+    valid = cursor.fetchone()
+ 
+    if not valid:
+        print("\nThat Transaction ID was not found in the pending list.")
+        print("  \nPlease choose an ID from the list shown above.\n")
+        conn.close()
+        return
+ 
+    # Update the status to show the order is now confirmed and moving forward
     cursor.execute(
-      "UPDATE transactions SET status = ? WHERE transaction_id = ?",
-       ("Confirmed - Processing", transaction_id)
+        "UPDATE transactions SET status = ? WHERE transaction_id = ?",
+        ("Confirmed - Processing", transaction_id)
     )
  
     conn.commit()
     conn.close()
  
-    print("Payment confirmed! Order is now active and being processed.\n")
+    print(" \n Done: Payment confirmed! Order is now active and being processed.\n")
  
 # VENDOR: Submit a rating for the platform
 
@@ -62,7 +78,7 @@ def rate_platform(vendor_id):
     # Keep asking until they type a valid number between 1 and 5
     while True:
         try:
-            rating = int(input("Your rating (1-5): "))
+            rating = int(get_positive_number("Your rating (1-5): ", min_value=1, max_value=5))
             if 1 <= rating <= 5:
                 break
             else:

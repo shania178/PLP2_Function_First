@@ -1,4 +1,5 @@
 import sqlite3
+from datetime import datetime
 
 # We are going to connect to a SQLite database called 'agribridge.db'. If it doesn't exist, it will be created.
 #Every other file that needs to interact with the database will import this function to establish a connection.
@@ -57,7 +58,7 @@ def create_tables():
             quantity_ordered REAL NOT NULL,
             order_date TEXT NOT NULL,
             status TEXT DEFAULT 'Pending payment',
-            payment_reference TEXT NOT NULL,
+            payment_reference TEXT,
             FOREIGN KEY (vendor_id) REFERENCES vendors(vendor_id)
             FOREIGN KEY (listing_id) REFERENCES harvest_listings(listing_id)
         )
@@ -108,6 +109,31 @@ def get_letters_only(label):
         if value.replace(" ", "").isalpha() and len(value) > 0:
             return value
         else:
-            print(f"{label} must contain only letters. No numbers or symbols allowed. Please try again.")
+            print(f"\n{label} must contain only letters. No numbers or symbols allowed. Please try again.")
+#4th function, will validate the contact number to ensure it is in the correct format (e.g., 11 digits).
+def get_contact_number(label):
+    while True:
+        value = input(f"Enter {label}: ").strip()
+ 
+        # .isdigit() returns True only if every character is a digit (0-9)
+        if value.isdigit() and len(value) >= 11:
+            return value
+        elif not value.isdigit():
+            print(f"\n{label} should only contain digits. Do not include symbols or letters.")
+        else:
+            # This runs if they typed digits but less than 11 of them
+            print(f"\n {label} seems too short. Please enter a valid number Nigerian number without a country code.")
+# The date must follow the format YYYY-MM-DD exactly
+# For example: 2025-06-15 is valid, "tomorrow" or "15/06/25" are not
+def get_date(label):
+    while True:
+        value = input(f"Enter {label} (YYYY-MM-DD): ").strip()
+ 
+        # We try to read the date using the exact format we expect
+        # If it does not match, datetime raises a ValueError and we reject it
+        try:
+            datetime.strptime(value, "%Y-%m-%d")
+            return value   # Format is correct — send it back
+        except ValueError:
+            print(f"\n Invalid date format. Please use YYYY-MM-DD (example: 2025-06-15).")
 
-        
