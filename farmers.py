@@ -11,10 +11,10 @@ from database import connect_db, get_input, get_positive_number, get_letters_onl
 def register_farmer():
     print("\n Register as Farmer")
     
-    name = get_letters_only("Enter your full name")
-    location = get_input("Enter your location (state/city)")
-    contact = get_input("Enter your contact number")
-    password = get_input("Create your password")
+    name = get_letters_only(" your full name")
+    location = get_input(" your location (state/city)")
+    contact = get_input(" your contact number")
+    password = get_input(" a password")
     
     conn = connect_db()
     cursor = conn.cursor()
