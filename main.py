@@ -133,7 +133,7 @@ def main():
 
         # Admin flow
         elif user_type == "3":
-            ADMIN_PASSWORD = "agribridge2025"  # only our team knows this
+            ADMIN_PASSWORD = "agribridge"  # only our team knows this
 
             print("\n--- Admin Login ---")
             password_attempt = input("Enter admin password: ")
