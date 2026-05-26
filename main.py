@@ -133,7 +133,16 @@ def main():
 
         # Admin flow
         elif user_type == "3":
-            admin_menu()
+            ADMIN_PASSWORD = "agribridge2025"  # only our team knows this
+
+            print("\n--- Admin Login ---")
+            password_attempt = input("Enter admin password: ")
+
+            if password_attempt == ADMIN_PASSWORD:
+                print("\nAccess granted. Welcome, Admin!")
+                admin_menu()
+            else:
+                print("\nWrong password. Access denied.")
 
         # Exit option
         elif user_type == "4":
