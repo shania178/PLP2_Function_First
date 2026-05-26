@@ -58,7 +58,7 @@ def create_tables():
             quantity_ordered REAL NOT NULL,
             order_date TEXT NOT NULL,
             status TEXT DEFAULT 'Pending payment',
-            payment_reference TEXT NOT NULL,
+            payment_reference TEXT,
             FOREIGN KEY (vendor_id) REFERENCES vendors(vendor_id)
             FOREIGN KEY (listing_id) REFERENCES harvest_listings(listing_id)
         )
@@ -122,7 +122,7 @@ def get_contact_number(label):
             print(f"\n{label} should only contain digits. Do not include symbols or letters.")
         else:
             # This runs if they typed digits but less than 11 of them
-            print(f"\n {label} seems too short. Please enter a valid number.")
+            print(f"\n {label} seems too short. Please enter a valid number Nigerian number without a country code.")
 # The date must follow the format YYYY-MM-DD exactly
 # For example: 2025-06-15 is valid, "tomorrow" or "15/06/25" are not
 def get_date(label):

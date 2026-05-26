@@ -13,7 +13,7 @@ def register_farmer():
     
     name = get_letters_only(" your full name")
     location = get_input(" your location (state/city)")
-    contact = get_contact_number(" your contact number. \nN.B. It should be a nigerian number without a country code included.:")
+    contact = get_contact_number(" your Nigeriancontact number")
     
     # Password Validation
 

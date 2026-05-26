@@ -69,7 +69,7 @@ def place_order(vendor_id):
 
     if payment_ref.strip().lower() == "skip" or payment_ref.strip() == "":
         status      = "Pending Payment"
-        payment_ref = None
+        payment_ref = "PENDING"   # This makes it clear in the database that they haven't provided a reference yet
     else:
         status = "Awaiting Admin Confirmation"
 

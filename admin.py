@@ -16,7 +16,7 @@ def admin_confirm_payment():
     FROM transactions t
     JOIN vendors v ON t.vendor_id = v.vendor_id
     JOIN harvest_listings h ON t.listing_id = h.listing_id
-    WHERE t.status = 'Awaiting admin confirmation'
+    WHERE t.status = 'Awaiting Admin Confirmation'
 """)
     pending = cursor.fetchall()
     if not pending:
